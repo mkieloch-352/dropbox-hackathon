@@ -5,6 +5,11 @@ import plugin from '@vitejs/plugin-vue';
 import fs from 'fs';
 import path from 'path';
 
+let certFilePath = '';
+let keyFilePath = '';
+const prod = process.env.ENVIRONMENT == 'PRODUCTION';
+console.log(`Prod=${prod}`);
+
 if (process.env.ENVIRONMENT != 'PRODUCTION') {
 const baseFolder =
     process.env.APPDATA !== undefined && process.env.APPDATA !== ''
@@ -61,7 +66,7 @@ export default defineConfig({
             }
         },
         port: 5173,
-        https: {
+        https: prod ? undefined : {
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),
         }
