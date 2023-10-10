@@ -35,7 +35,7 @@ onMounted(async () => {
 	const id = query.contractId;
     contractId.value = id as string;
 
-	const response = await fetch(`/api/contract/get/${contractId.value}`, {
+	const response = await fetch(`https://dropboxhackathon.azurewebsites.net/api/contract/get/${contractId.value}`, {
 		method: 'get'
 	});
 
@@ -58,7 +58,7 @@ async function prompt(prompt: string) {
         prompt: prompt
     }
 
-    const response = await fetch(`/api/contract/prompt`, {
+    const response = await fetch(`https://dropboxhackathon.azurewebsites.net/api/contract/prompt`, {
 		method: 'post',
         headers: {
 			'Content-Type': 'application/json'

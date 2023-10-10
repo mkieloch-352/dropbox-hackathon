@@ -24,8 +24,8 @@ if (!certificateName) {
     process.exit(-1);
 }
 
-const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
 }
 const targetUrl = process.env.TARGET_URL != null ? process.env.TARGET_URL : "https://localhost:7222/";
@@ -40,20 +40,16 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
-                target: targetUrl,
+            '^/api/prompt': {
+                target: `${targetUrl}`,
                 secure: false
             },
-            '^/prompt': {
-                target: `${targetUrl}/api`,
+            '^/api/dropbox/template': {
+                target: `${targetUrl}`,
                 secure: false
             },
-            '^/dropbox/template': {
-                target: `${targetUrl}/api`,
-                secure: false
-            },
-            '^/dropbox/sign': {
-                target: `${targetUrl}/api`,
+            '^/api/dropbox/sign': {
+                target: `${targetUrl}`,
                 secure: false
             },
             '^/api/contract/get': {

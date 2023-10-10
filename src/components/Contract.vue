@@ -57,9 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import router from '@/main';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
 
 const contractElement = ref<HTMLDivElement>();
 
@@ -96,7 +94,7 @@ async function generateTemplate() {
 		roles: roles.value
 	};
 
-	const response = await fetch('dropbox/template', {
+	const response = await fetch(`https://dropboxhackathon.azurewebsites.net/api/dropbox/template`, {
 		method: 'post',
 		headers: {
 			'Content-Type': 'application/json'
@@ -134,7 +132,7 @@ async function requestSignature() {
         signerRole: signerRole.value
 	};
 
-	const response = await fetch('dropbox/sign', {
+	const response = await fetch(`https://dropboxhackathon.azurewebsites.net/api/dropbox/sign`, {
 		method: 'post',
 		headers: {
 			'Content-Type': 'application/json'
@@ -154,6 +152,7 @@ async function requestSignature() {
 <style scoped>
 .generated-contract {
 	height: 80%;
+    min-height: 200px;
 	overflow-y: scroll;
 }
 </style>

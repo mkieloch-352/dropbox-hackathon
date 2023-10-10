@@ -1,10 +1,8 @@
 <template>
-     <main>
     <div class="row">
       <Prompt @contract-generated="contractGenerated"/>
       <Contract :contract-text="contractResponse" />
     </div>
-  </main>
 </template>
 
 <script lang="ts" setup>

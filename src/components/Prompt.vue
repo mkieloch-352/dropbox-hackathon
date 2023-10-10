@@ -16,7 +16,7 @@
     const emits = defineEmits(["contractGenerated"]);
 
     async function generateContract() {
-        const response = await fetch('prompt', {
+        const response = await fetch(`https://dropboxhackathon.azurewebsites.net/api/prompt`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
