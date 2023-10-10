@@ -5,12 +5,13 @@ import plugin from '@vitejs/plugin-vue';
 import fs from 'fs';
 import path from 'path';
 
+if (process.env.ENVIRONMENT != 'PRODUCTION') {
 const baseFolder =
     process.env.APPDATA !== undefined && process.env.APPDATA !== ''
         ? `${process.env.APPDATA}/ASP.NET/https`
         : `${process.env.HOME}/.aspnet/https`;
 
-const certificateArg = process.argv.map(arg => arg.match(/--name=(?<value>.+)/i)).filter(Boolean)[0];
+        const certificateArg = process.argv.map(arg => arg.match(/--name=(?<value>.+)/i)).filter(Boolean)[0];
 const certificateName = certificateArg ? certificateArg.groups.value : "vueapp";
 
 if (!certificateName) {
@@ -20,6 +21,9 @@ if (!certificateName) {
 
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+
+}
+const targetUrl = process.env.TARGET_URL != null ? process.env.TARGET_URL : "https://localhost:7222/";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -32,27 +36,27 @@ export default defineConfig({
     server: {
         proxy: {
             '^/weatherforecast': {
-                target: 'https://localhost:7222/',
+                target: targetUrl,
                 secure: false
             },
             '^/prompt': {
-                target: 'https://localhost:7222/api',
+                target: `${targetUrl}/api`,
                 secure: false
             },
             '^/dropbox/template': {
-                target: 'https://localhost:7222/api',
+                target: `${targetUrl}/api`,
                 secure: false
             },
             '^/dropbox/sign': {
-                target: 'https://localhost:7222/api',
+                target: `${targetUrl}/api`,
                 secure: false
             },
             '^/api/contract/get': {
-                target: 'https://localhost:7222/',
+                target: targetUrl,
                 secure: false
             },
             '^/api/contract/prompt': {
-                target: 'https://localhost:7222/',
+                target: targetUrl,
                 secure: false
             }
         },
